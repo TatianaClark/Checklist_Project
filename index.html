@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Checklists Hub - Learn & Share</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00d4ff 100%);
+            padding-top: 0;
+            min-height: 100vh;
+        }
+        
+        /* Navigation Menu */
+        nav {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-brand:hover {
+            opacity: 0.9;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-menu li {
+            margin: 0;
+        }
+        
+        .nav-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: #00d4ff;
+        }
+        
+        /* Marquee Logo */
+        .marquee-container {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 20px 0;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .marquee {
+            display: flex;
+            animation: scroll 45s linear infinite;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 3px solid #FFD700;
+            animation: pulse-glow 3s ease-in-out infinite;
+            max-width: 100%;
+            display: block;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: slideDown 0.8s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            font-style: italic;
+        }
+        
+        .hero-description {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .checklists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .checklist-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            cursor: pointer;
+            border-top: 5px solid;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .checklist-card.power-bi {
+            border-top-color: #764ba2;
+        }
+        
+        .checklist-card.github {
+            border-top-color: #764ba2;
+        }
+        
+        .checklist-card.hosting {
+            border-top-color: #0099ff;
+        }
+        
+        .checklist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+        }
+        
+        .checklist-card h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .checklist-card.power-bi h2 {
+            color: #764ba2;
+        }
+        
+        .checklist-card.github h2 {
+            color: #764ba2;
+        }
+        
+        .checklist-card.hosting h2 {
+            color: #0099ff;
+        }
+        
+        .card-description {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .card-features {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        
+        .card-features li {
+            list-style: none;
+            padding: 5px 0;
+            margin-left: 0;
+        }
+        
+        .card-features li:before {
+            content: "✓ ";
+            color: #00aa00;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(118, 75, 162, 0.4);
+        }
+        
+        .btn-primary-blue {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            color: white;
+        }
+        
+        .btn-primary-blue:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 153, 255, 0.4);
+        }
+        
+        .features-section {
+            background-color: white;
+            padding: 50px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features-section h2 {
+            text-align: center;
+            color: #764ba2;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-item h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .feature-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .use-cases {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .use-cases h2 {
+            text-align: center;
+            color: #764ba2;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .use-case {
+            background-color: #f8f7ff;
+            padding: 25px;
+            border-left: 5px solid #764ba2;
+            border-radius: 6px;
+        }
+        
+        .use-case h3 {
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .use-case p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00d4ff 100%);
+            padding: 50px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .cta-section p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            background-color: white;
+            color: #764ba2;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        footer {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin-top: 50px;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .tagline {
+                font-size: 1.2em;
+            }
+            
+            .checklists-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checklist-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-brand">Welcome to Checklist Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="power_bi_checklist.html">📊 Power BI</a></li>
+                <li><a href="github_pages_setup_checklist.html">🚀 GitHub Setup</a></li>
+                <li><a href="free_hosting_options_checklist.html">🌐 Hosting</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Marquee with Logo -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <div class="marquee-item">
+                <img src="PowerBI_Superhero.png" alt="Tatiana Logo" class="logo-image" />
+                <span>✨ Welcome to Checklists Hub ✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🎓 Learn, Create, Share ✨</h1>
+            <p class="tagline">Master Your Learning Journey & Sell Digital Products</p>
+            <div class="hero-description">
+                <p>Welcome! This is your central hub for organizing learning checklists, publishing them online for free, and building a business around educational content. Start with Power BI, set up GitHub Pages, then explore hosting options to scale your impact.</p>
+            </div>
+        </header>
+        
+        <!-- Main Checklists Grid -->
+        <div class="checklists-grid">
+            <!-- Power BI Checklist Card -->
+            <div class="checklist-card power-bi">
+                <div>
+                    <div class="icon">📊</div>
+                    <h2>Power BI Concepts</h2>
+                    <p class="card-description">Master essential Power BI concepts including DAX, Power Query, data modeling, visualizations, and advanced topics needed to become proficient in business intelligence.</p>
+                    <ul class="card-features">
+                        <li>Core Concepts & Foundations</li>
+                        <li>Data Visualization Types</li>
+                        <li>Advanced Topics (RLS, Security)</li>
+                        <li>Publishing & Sharing Strategies</li>
+                    </ul>
+                </div>
+                <a href="power_bi_checklist.html" class="btn btn-primary">📊 Open Checklist</a>
+            </div>
+            
+            <!-- GitHub Pages Setup Card -->
+            <div class="checklist-card github">
+                <div>
+                    <div class="icon">🚀</div>
+                    <h2>GitHub Pages Setup</h2>
+                    <p class="card-description">Step-by-step guide to publish your HTML checklists online for free using GitHub Pages. Perfect for students and customers to access your shared resources.</p>
+                    <ul class="card-features">
+                        <li>Create GitHub Repository</li>
+                        <li>Push Files with Git</li>
+                        <li>Enable GitHub Pages</li>
+                        <li>Share with Students/Customers</li>
+                    </ul>
+                </div>
+                <a href="github_pages_setup_checklist.html" class="btn btn-primary">🚀 Start Setup</a>
+            </div>
+            
+            <!-- Free Hosting Options Card -->
+            <div class="checklist-card hosting">
+                <div>
+                    <div class="icon">🌐</div>
+                    <h2>Free Hosting Options</h2>
+                    <p class="card-description">Compare Netlify, Vercel, GitHub Pages, and other platforms. Choose the best free hosting solution for your checklists with detailed setup guides.</p>
+                    <ul class="card-features">
+                        <li>Netlify Setup Guide</li>
+                        <li>Vercel Deployment Steps</li>
+                        <li>GitHub Pages Integration</li>
+                        <li>Platform Comparison & Tips</li>
+                    </ul>
+                </div>
+                <a href="free_hosting_options_checklist.html" class="btn btn-primary-blue">🌐 Explore Hosting</a>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2>🎯 Why Use This Hub?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3>100% FREE</h3>
+                    <p>No hosting costs, no credit cards. Deploy unlimited checklists on free platforms like Netlify, Vercel, or GitHub Pages.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Globally Accessible</h3>
+                    <p>Share checklists with students worldwide. Instant updates, no downloads, no installation needed.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>All checklists work perfectly on phones, tablets, and desktops. Progress saves automatically.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Auto-Syncing</h3>
+                    <p>Push changes to Git, and hosting platforms auto-deploy. No manual uploads needed.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">💼</div>
+                    <h3>Sell Templates</h3>
+                    <p>Create professional checklists and sell them on Gumroad, Etsy, or your own platform.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h3>Track Progress</h3>
+                    <p>Students can track their learning journey with interactive checkboxes and progress bars.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Use Cases Section -->
+        <div class="use-cases">
+            <h2>🎓 How To Use This Hub</h2>
+            <div class="use-cases-grid">
+                <div class="use-case">
+                    <h3>👨‍🎓 For Students</h3>
+                    <p>Use the Power BI checklist to track your learning progress. Check off concepts as you master them. Share with classmates and study groups.</p>
+                </div>
+                
+                <div class="use-case">
+                    <h3>👩‍🏫 For Educators</h3>
+                    <p>Create learning checklists for your courses. Use GitHub Pages to share with students. Track their progress and engagement.</p>
+                </div>
+                
+                <div class="use-case">
+                    <h3>🛍️ For Entrepreneurs</h3>
+                    <p>Build a portfolio of specialized checklists. Sell them on platforms like Gumroad. Create passive income from educational content.</p>
+                </div>
+                
+                <div class="use-case">
+                    <h3>🚀 For Developers</h3>
+                    <p>Learn deployment workflows with Netlify and Vercel. Practice Git collaboration. Build your web presence with free hosting.</p>
+                </div>
+                
+                <div class="use-case">
+                    <h3>🎯 For Teams</h3>
+                    <p>Create team onboarding checklists. Share processes and workflows. Use as training documentation.</p>
+                </div>
+                
+                <div class="use-case">
+                    <h3>📚 For Content Creators</h3>
+                    <p>Build interactive learning materials. Host for free. Monetize through ads, sponsorships, or direct sales.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action Section -->
+        <div class="cta-section">
+            <h2>🎉 Ready to Get Started?</h2>
+            <p>Follow these three steps to publish your checklists online today!</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 40px 0; text-align: left; color: #333;">
+                <div style="background: white; padding: 25px; border-radius: 8px;">
+                    <h3 style="color: #764ba2; margin-bottom: 10px;">Step 1: Create Content</h3>
+                    <p>Start with the <strong>Power BI Checklist</strong> or create your own. Customize it for your needs.</p>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 8px;">
+                    <h3 style="color: #764ba2; margin-bottom: 10px;">Step 2: Set Up Hosting</h3>
+                    <p>Follow the <strong>GitHub Pages Setup</strong> guide or choose from <strong>Free Hosting Options</strong>.</p>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 8px;">
+                    <h3 style="color: #764ba2; margin-bottom: 10px;">Step 3: Share & Scale</h3>
+                    <p>Share links with students. Sell templates. Build your educational brand!</p>
+                </div>
+            </div>
+            <div class="cta-buttons">
+                <a href="power_bi_checklist.html" class="cta-btn">Start Learning</a>
+                <a href="github_pages_setup_checklist.html" class="cta-btn">Set Up Hosting</a>
+                <a href="free_hosting_options_checklist.html" class="cta-btn">Compare Platforms</a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <h3>📚 Interactive Checklists Hub</h3>
+            <p>Your complete solution for creating, publishing, and monetizing educational checklists</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Created: March 18, 2026 | All hosting is FREE | All content is yours</p>
+            <div class="social-links">
+                <p style="margin-bottom: 10px;">Share your experience:</p>
+                <a href="#">💬 Feedback</a>
+                <a href="#">🌐 Portfolio</a>
+                <a href="#">📧 Contact</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

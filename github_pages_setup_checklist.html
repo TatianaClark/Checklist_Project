@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Setup Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        /* Navigation Menu */
+        nav {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-brand:hover {
+            opacity: 0.9;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-menu li {
+            margin: 0;
+        }
+        
+        .nav-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: #FFD700;
+        }
+        
+        .page-content {
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(128, 0, 128, 0.2);
+        }
+        
+        h1 {
+            color: #764ba2;
+            font-weight: bold;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 4px solid #764ba2;
+            padding-bottom: 20px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        h2 {
+            color: #764ba2;
+            font-weight: bold;
+            font-size: 1.9em;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-number {
+            display: inline-block;
+            background-color: #764ba2;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .checklist li {
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f8f7ff;
+            border-left: 5px solid #764ba2;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .checklist li:hover {
+            background-color: #ede7f6;
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.15);
+        }
+        
+        .checklist input[type="checkbox"] {
+            margin: 0;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #764ba2;
+            flex-shrink: 0;
+        }
+        
+        .checklist li.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+            background-color: #e8e0f0;
+        }
+        
+        .checklist li.completed input[type="checkbox"] {
+            accent-color: #999;
+        }
+        
+        .description {
+            color: #888;
+            font-size: 0.95em;
+            font-weight: normal;
+            font-style: italic;
+            margin-left: 32px;
+            margin-top: -8px;
+            margin-bottom: 8px;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-size: 0.95em;
+            color: #856404;
+        }
+        
+        .progress-bar {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .completion-text {
+            text-align: center;
+            color: #764ba2;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            color: #888;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🎓 Learn, Create, Share ✨</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="power_bi_checklist.html">📊 Power BI</a></li>
+                <li><a href="github_pages_setup_checklist.html">🚀 GitHub Setup</a></li>
+                <li><a href="free_hosting_options_checklist.html">🌐 Hosting</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="page-content">
+    <div class="container">
+        <h1>🚀 GitHub Pages Setup Checklist</h1>
+        <p class="subtitle">Follow these steps to publish your HTML checklist online for students and templates</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="completion-text" id="completionText">0% Complete</div>
+        
+        <div class="note">
+            <strong>📝 Tip:</strong> Use this checklist to guide you through creating shareable online checklists for your students and selling templates!
+        </div>
+        
+        <!-- Section 1: Prerequisites -->
+        <h2><span class="section-number">1</span>Prerequisites</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Have a GitHub account (sign up at github.com if needed)</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Have Git installed on your computer</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Have your HTML checklist file ready (power_bi_checklist.html)</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Visual Studio or code editor installed</span>
+            </li>
+        </ul>
+        
+        <!-- Section 2: Create GitHub Repository -->
+        <h2><span class="section-number">2</span>Create GitHub Repository</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Log in to your GitHub account</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Click "+" icon → "New repository"</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Name the repository (e.g., "student-checklists" or "checklist-templates")</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Add a description of your checklists</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Choose "Public" (so students/customers can access)</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Click "Create repository"</span>
+            </li>
+        </ul>
+        
+        <!-- Section 3: Push Files to GitHub -->
+        <h2><span class="section-number">3</span>Push Files to GitHub</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Open Visual Studio or Git Bash</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Clone the repository: git clone [your-repo-url]</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Copy your HTML checklist file(s) into the cloned folder</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Create a README.md file to describe your checklists</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Stage changes: git add .</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Commit changes: git commit -m "Add checklist templates"</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Push to GitHub: git push origin main</span>
+            </li>
+        </ul>
+        
+        <!-- Section 4: Enable GitHub Pages -->
+        <h2><span class="section-number">4</span>Enable GitHub Pages</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Go to your repository on GitHub</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Click "Settings" tab</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Scroll to "Pages" section in left menu</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Select "main" branch as source</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Click "Save"</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Wait 1-2 minutes for deployment</span>
+            </li>
+        </ul>
+        
+        <!-- Section 5: Access Your Published Checklists -->
+        <h2><span class="section-number">5</span>Access Your Published Checklists</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Your site is live at: https://yourusername.github.io/repo-name/</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Access specific checklist: https://yourusername.github.io/repo-name/filename.html</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Test that all checklists load correctly</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Verify checkboxes work and save properly</span>
+            </li>
+        </ul>
+        
+        <!-- Section 6: Share with Students/Customers -->
+        <h2><span class="section-number">6</span>Share with Students & Customers</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Copy the public GitHub Pages URL</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Share URL with students in course materials/emails</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Create a landing page listing all available checklists</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Set up a portfolio/sales page for template offerings</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Add payment link (Gumroad, Stripe, etc.) for template sales</span>
+            </li>
+        </ul>
+        
+        <!-- Section 7: Maintenance & Updates -->
+        <h2><span class="section-number">7</span>Maintenance & Updates</h2>
+        <ul class="checklist">
+            <li>
+                <input type="checkbox">
+                <span>Create new checklists as course progresses</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Test updates locally before pushing</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Push updates: git add . && git commit -m "message" && git push</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Notify students of new checklist availability</span>
+            </li>
+            <li>
+                <input type="checkbox">
+                <span>Track student progress through course checklists</span>
+            </li>
+        </ul>
+        
+        <div class="note">
+            <strong>💡 Business Tip:</strong> You can use this same setup to create and sell specialized checklists on platforms like Gumroad, Etsy, or your own website. Each checklist can be a standalone product!
+        </div>
+        
+        <div class="footer">
+            <p>Created: March 18, 2026 | Update this checklist anytime you add new features or checklists</p>
+        </div>
+    </div>
+    
+    <script>
+        const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+        
+        function updateProgress() {
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('completionText').textContent = percentage + '% Complete';
+        }
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                this.closest('li').classList.toggle('completed');
+                updateProgress();
+            });
+        });
+        
+        // Load saved progress from localStorage
+        checkboxes.forEach((checkbox, index) => {
+            const saved = localStorage.getItem('checklist-' + index);
+            if (saved === 'true') {
+                checkbox.checked = true;
+                checkbox.closest('li').classList.add('completed');
+            }
+            
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem('checklist-' + index, this.checked);
+            });
+        });
+        
+        updateProgress();
+    </script>
+</body>
+</html>

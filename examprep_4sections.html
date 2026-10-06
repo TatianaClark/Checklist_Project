@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Exam Prep - 4 Sections with Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Navigation Menu */
+        nav {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: #FFD700;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .marquee-container {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 20px 0;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .marquee {
+            display: flex;
+            animation: scroll 45s linear infinite;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #764ba2;
+            font-size: 1.4em;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #FFD700;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 128, 0.1);
+        }
+        
+        h1 {
+            color: #800080;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .completion-text {
+            text-align: center;
+            color: #800080;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 2px solid #800080;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #ede7f6;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f0e6ff 0%, #e6f0ff 100%);
+            padding: 18px;
+            margin: 20px 0 0 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #800080;
+            user-select: none;
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(135deg, #e0d6ff 0%, #d6e0ff 100%);
+            transform: translateX(5px);
+        }
+        
+        .section-header.completed {
+            background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 100%);
+            border-left-color: #28a745;
+        }
+        
+        .section-header.completed:hover {
+            background: linear-gradient(135deg, #c8e6c9 0%, #b8ddc4 100%);
+        }
+        
+        .section-header.completed .section-title {
+            color: #155724;
+        }
+        
+        .section-header.completed .section-percentage {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        }
+        
+        .section-header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            justify-content: space-between;
+        }
+        
+        .section-title {
+            color: #800080;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .section-percentage {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+        
+        .collapse-icon {
+            font-size: 1.8em;
+            transition: transform 0.3s ease;
+            color: #764ba2;
+            margin-left: auto;
+        }
+        
+        .section-header.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: block;
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+        
+        .section-header.collapsed + .checklist {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .subsection-label {
+            color: #764ba2;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 15px 15px 10px 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ddd;
+            list-style: none !important;
+        }
+        
+        .checklist li {
+            padding: 12px 15px;
+            margin: 8px 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #800080;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .checklist li.subsection-label {
+            background-color: transparent;
+            border-left: none;
+            cursor: default;
+            padding: 0;
+        }
+        
+        .checklist li:hover:not(.subsection-label) {
+            background-color: #ede7f6;
+            transform: translateX(5px);
+        }
+        
+        .checklist input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #800080;
+            flex-shrink: 0;
+        }
+        
+        .checklist li.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+            color: #999;
+        }
+        
+        .floating-widgets {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .floating-progress {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .progress-title {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+        
+        .progress-percentage {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        
+        .progress-items {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+        
+        .floating-categories {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            min-width: 200px;
+            max-width: 220px;
+        }
+        
+        .categories-title {
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 12px;
+            text-align: center;
+            border-bottom: 2px solid #764ba2;
+            padding-bottom: 8px;
+        }
+        
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            padding: 7px;
+            border-radius: 6px;
+            background-color: #f8f7ff;
+            transition: all 0.3s ease;
+            font-size: 0.8em;
+        }
+        
+        .category-item:hover {
+            background-color: #e8e0ff;
+            transform: translateX(2px);
+        }
+        
+        .category-item.completed {
+            background-color: #d4edda;
+        }
+        
+        .category-checkbox {
+            font-size: 1.1em;
+            min-width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .category-name {
+            color: #333;
+            flex: 1;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .category-percent {
+            font-size: 0.7em;
+            color: #764ba2;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: right;
+            background-color: rgba(118, 75, 162, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        
+        .category-item.completed .category-name {
+            color: #155724;
+            text-decoration: line-through;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #800080;
+            padding-bottom: 15px;
+        }
+        
+        .modal-title {
+            color: #800080;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: #800080;
+        }
+        
+        .report-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #800080;
+        }
+        
+        .report-section-title {
+            color: #800080;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .report-item {
+            padding: 10px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+            font-size: 0.95em;
+        }
+        
+        .report-item::before {
+            content: "⚠️ ";
+            margin-right: 8px;
+        }
+        
+        .no-items {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ffd700;
+            pointer-events: none;
+            z-index: 2000;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+            100% { transform: translateY(500px) rotateZ(720deg); opacity: 0; }
+        }
+        
+        .confetti.animate {
+            animation: confetti-fall 3s ease-in forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <div class="nav-container">
+            <a href="./" class="nav-brand">📚 Checklists Hub</a>
+            <ul class="nav-menu">
+                <li><a href="./">🏠 Home</a></li>
+                <li><a href="power_bi_checklist.html">📊 Power BI</a></li>
+                <li><a href="examprep_4sections.html">🚀 Exam Prep</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Marquee with Logo -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <div class="marquee-item">
+                <img src="PowerBI_Superhero.png" alt="Tatiana Logo" class="logo-image" />
+                <span>✨ Power BI Exam Prep ✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>🎓 Power BI Exam Prep - 4 Sections</h1>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="completion-text" id="completionText">0% Complete</div>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" id="generateReportBtn">📊 Generate Study Report</button>
+            <button class="btn btn-secondary" id="resetBtn">🔄 Reset Progress</button>
+        </div>
+        
+        <!-- Section 1: Prepare the data -->
+        <div class="section-header" data-section="prepare-data">
+            <div class="section-header-content">
+                <span class="section-title">1. Prepare the Data (25–30%)</span>
+                <span class="section-percentage" id="progress-prepare-data">0%</span>
+                <span class="collapse-icon">▶</span>
+            </div>
+        </div>
+        <ul class="checklist" data-category="prepare-data">
+            <li class="subsection-label">Get or connect to data</li>
+            <li><input type="checkbox"> <span>Identify and connect to data sources or a shared semantic model</span></li>
+            <li><input type="checkbox"> <span>Change data source settings, including credentials and privacy levels</span></li>
+            <li><input type="checkbox"> <span>Choose between DirectQuery and Import</span></li>
+            <li><input type="checkbox"> <span>Create and modify parameters</span></li>
+            
+            <li class="subsection-label">Profile and clean the data</li>
+            <li><input type="checkbox"> <span>Evaluate data, including data statistics and column properties</span></li>
+            <li><input type="checkbox"> <span>Resolve inconsistencies, unexpected or null values, and data quality issues</span></li>
+            <li><input type="checkbox"> <span>Resolve data import errors</span></li>
+            
+            <li class="subsection-label">Transform and load the data</li>
+            <li><input type="checkbox"> <span>Select appropriate column data types</span></li>
+            <li><input type="checkbox"> <span>Create and transform columns</span></li>
+            <li><input type="checkbox"> <span>Group and aggregate rows</span></li>
+            <li><input type="checkbox"> <span>Pivot, unpivot, and transpose data</span></li>
+            <li><input type="checkbox"> <span>Convert semi-structured data to a table</span></li>
+            <li><input type="checkbox"> <span>Create fact tables and dimension tables</span></li>
+            <li><input type="checkbox"> <span>Identify when to use reference or duplicate queries</span></li>
+            <li><input type="checkbox"> <span>Merge and append queries</span></li>
+        </ul>
+        
+        <!-- Section 2: Model the data -->
+        <div class="section-header" data-section="model-data">
+            <div class="section-header-content">
+                <span class="section-title">2. Model the Data (25–30%)</span>
+                <span class="section-percentage" id="progress-model-data">0%</span>
+                <span class="collapse-icon">▶</span>
+            </div>
+        </div>
+        <ul class="checklist" data-category="model-data">
+            <li class="subsection-label">Design and implement a data model</li>
+            <li><input type="checkbox"> <span>Configure table and column properties</span></li>
+            <li><input type="checkbox"> <span>Implement role-playing dimensions</span></li>
+            <li><input type="checkbox"> <span>Define a relationship's cardinality and cross-filter direction</span></li>
+            <li><input type="checkbox"> <span>Create a common date table</span></li>
+            <li><input type="checkbox"> <span>Identify use cases for calculated columns and calculated tables</span></li>
+            
+            <li class="subsection-label">Create model calculations using DAX</li>
+            <li><input type="checkbox"> <span>Create single aggregation measures</span></li>
+            <li><input type="checkbox"> <span>Use the CALCULATE function</span></li>
+            <li><input type="checkbox"> <span>Implement time intelligence measures</span></li>
+            <li><input type="checkbox"> <span>Use basic statistical functions</span></li>
+            <li><input type="checkbox"> <span>Create semi-additive measures</span></li>
+            <li><input type="checkbox"> <span>Create a measure by using quick measures</span></li>
+            
+            <li class="subsection-label">Optimize model performance</li>
+            <li><input type="checkbox"> <span>Improve performance by identifying and removing unnecessary rows and columns</span></li>
+            <li><input type="checkbox"> <span>Identify poorly performing measures, relationships, and visuals</span></li>
+            <li><input type="checkbox"> <span>Improve performance by reducing granularity</span></li>
+        </ul>
+        
+        <!-- Section 3: Visualize and analyze the data -->
+        <div class="section-header" data-section="visualize-data">
+            <div class="section-header-content">
+                <span class="section-title">3. Visualize and Analyze the Data (25–30%)</span>
+                <span class="section-percentage" id="progress-visualize-data">0%</span>
+                <span class="collapse-icon">▶</span>
+            </div>
+        </div>
+        <ul class="checklist" data-category="visualize-data">
+            <li class="subsection-label">Create reports</li>
+            <li><input type="checkbox"> <span>Select an appropriate visual</span></li>
+            <li><input type="checkbox"> <span>Format and configure visuals</span></li>
+            <li><input type="checkbox"> <span>Apply and customize a theme</span></li>
+            <li><input type="checkbox"> <span>Apply conditional formatting</span></li>
+            <li><input type="checkbox"> <span>Apply slicing and filtering</span></li>
+            <li><input type="checkbox"> <span>Configure the report page</span></li>
+            <li><input type="checkbox"> <span>Choose when to use a paginated report</span></li>
+            
+            <li class="subsection-label">Enhance reports for usability and storytelling</li>
+            <li><input type="checkbox"> <span>Configure bookmarks</span></li>
+            <li><input type="checkbox"> <span>Create custom tooltips</span></li>
+            <li><input type="checkbox"> <span>Edit and configure interactions between visuals</span></li>
+            <li><input type="checkbox"> <span>Configure navigation for a report</span></li>
+            <li><input type="checkbox"> <span>Apply sorting to visuals</span></li>
+            <li><input type="checkbox"> <span>Configure sync slicers</span></li>
+            <li><input type="checkbox"> <span>Configure drill through navigation</span></li>
+            <li><input type="checkbox"> <span>Design reports for mobile devices</span></li>
+            
+            <li class="subsection-label">Identify patterns and trends</li>
+            <li><input type="checkbox"> <span>Use the Analyze feature in Power BI</span></li>
+            <li><input type="checkbox"> <span>Use grouping, binning, and clustering</span></li>
+            <li><input type="checkbox"> <span>Use AI visuals</span></li>
+        </ul>
+        
+        <!-- Section 4: Deploy, manage, and secure -->
+        <div class="section-header" data-section="deploy-manage">
+            <div class="section-header-content">
+                <span class="section-title">4. Deploy, Manage, and Secure (15–20%)</span>
+                <span class="section-percentage" id="progress-deploy-manage">0%</span>
+                <span class="collapse-icon">▶</span>
+            </div>
+        </div>
+        <ul class="checklist" data-category="deploy-manage">
+            <li class="subsection-label">Deploy and manage Power BI assets</li>
+            <li><input type="checkbox"> <span>Create and manage workspaces</span></li>
+            <li><input type="checkbox"> <span>Deploy Power BI assets</span></li>
+            <li><input type="checkbox"> <span>Manage user access to Power BI assets</span></li>
+            <li><input type="checkbox"> <span>Configure data refresh</span></li>
+            <li><input type="checkbox"> <span>Configure incremental refresh</span></li>
+            
+            <li class="subsection-label">Monitor and optimize Power BI</li>
+            <li><input type="checkbox"> <span>Monitor performance and usage metrics</span></li>
+            <li><input type="checkbox"> <span>Troubleshoot common issues</span></li>
+            <li><input type="checkbox"> <span>Optimize Power BI capacity</span></li>
+            <li><input type="checkbox"> <span>Use Performance Analyzer</span></li>
+            
+            <li class="subsection-label">Manage Power BI security</li>
+            <li><input type="checkbox"> <span>Configure row-level security (RLS)</span></li>
+            <li><input type="checkbox"> <span>Configure object-level security (OLS)</span></li>
+            <li><input type="checkbox"> <span>Manage sensitive data and PII</span></li>
+            <li><input type="checkbox"> <span>Configure data encryption</span></li>
+        </ul>
+        
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+            <p style="color: #666; font-size: 0.95em;">Created with ❤️ using GitHub Copilot CLI | Total: 73 exam topics across 4 sections</p>
+        </div>
+    </div>
+    
+    <!-- Floating Categories Widget (Left) -->
+    <div class="floating-categories" id="floatingCategories">
+        <div class="categories-title">📖 Section Progress</div>
+        <div class="category-item" data-category="prepare-data">
+            <div class="category-checkbox" id="cat-prepare-data">☐</div>
+            <div class="category-name">Prepare Data</div>
+            <div class="category-percent" id="percent-prepare-data">0%</div>
+        </div>
+        <div class="category-item" data-category="model-data">
+            <div class="category-checkbox" id="cat-model-data">☐</div>
+            <div class="category-name">Model Data</div>
+            <div class="category-percent" id="percent-model-data">0%</div>
+        </div>
+        <div class="category-item" data-category="visualize-data">
+            <div class="category-checkbox" id="cat-visualize-data">☐</div>
+            <div class="category-name">Visualize</div>
+            <div class="category-percent" id="percent-visualize-data">0%</div>
+        </div>
+        <div class="category-item" data-category="deploy-manage">
+            <div class="category-checkbox" id="cat-deploy-manage">☐</div>
+            <div class="category-name">Deploy</div>
+            <div class="category-percent" id="percent-deploy-manage">0%</div>
+        </div>
+    </div>
+
+    <!-- Floating Progress Widget (Right) -->
+    <div class="floating-widgets">
+        <div class="floating-progress" id="floatingProgress">
+            <div class="progress-title">📚 Exam Progress</div>
+            <div class="progress-percentage" id="floatingPercentage">0%</div>
+            <div class="progress-items" id="floatingItems">0/73</div>
+        </div>
+    </div>
+    
+    <!-- Study Report Modal -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📋 Your Study Report</h2>
+                <button class="close-btn" id="closeReportBtn">&times;</button>
+            </div>
+            <div id="reportContent"></div>
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Print Report</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+        const categories = ['prepare-data', 'model-data', 'visualize-data', 'deploy-manage'];
+        const categoryNames = {
+            'prepare-data': '1. Prepare the Data',
+            'model-data': '2. Model the Data',
+            'visualize-data': '3. Visualize and Analyze the Data',
+            'deploy-manage': '4. Deploy, Manage, and Secure'
+        };
+        const completedCategories = new Set();
+        
+        // Toggle section collapse
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.classList.toggle('collapsed');
+                const section = this.getAttribute('data-section');
+                localStorage.setItem('exam-section-' + section, this.classList.contains('collapsed'));
+            });
+        });
+        
+        // Load saved collapse states
+        document.querySelectorAll('.section-header').forEach(header => {
+            const section = header.getAttribute('data-section');
+            const isCollapsed = localStorage.getItem('exam-section-' + section) === 'true';
+            if (isCollapsed) {
+                header.classList.add('collapsed');
+            }
+        });
+        
+        function getCheckboxesByCategory(category) {
+            const checklist = document.querySelector(`ul[data-category="${category}"]`);
+            if (!checklist) return [];
+            return checklist.querySelectorAll('input[type="checkbox"]');
+        }
+        
+        function getCategoryPercentage(category) {
+            const checkboxes = getCheckboxesByCategory(category);
+            if (checkboxes.length === 0) return 0;
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            return Math.round((completed / checkboxes.length) * 100);
+        }
+        
+        function getUncheckedItems(category) {
+            const checklist = document.querySelector(`ul[data-category="${category}"]`);
+            if (!checklist) return [];
+            const items = [];
+            const listItems = checklist.querySelectorAll('li');
+            listItems.forEach(li => {
+                const input = li.querySelector('input[type="checkbox"]');
+                if (input && !input.checked && !li.classList.contains('subsection-label')) {
+                    items.push(li.textContent.replace(/^\s*/, '').trim());
+                }
+            });
+            return items;
+        }
+        
+        function isCategoryComplete(category) {
+            const checkboxes = getCheckboxesByCategory(category);
+            if (checkboxes.length === 0) return false;
+            return Array.from(checkboxes).every(cb => cb.checked);
+        }
+        
+        function createConfetti() {
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = Math.random() * (window.innerHeight * 0.3) + 'px';
+                const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#95e1d3', '#f38181'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.classList.add('animate');
+                }, 10);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+        
+        function updateProgress() {
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('completionText').textContent = percentage + '% Complete';
+            document.getElementById('floatingPercentage').textContent = percentage + '%';
+            document.getElementById('floatingItems').textContent = completed + '/' + total;
+            
+            // Update section percentages
+            categories.forEach(category => {
+                const pct = getCategoryPercentage(category);
+                const elem = document.getElementById('progress-' + category);
+                if (elem) elem.textContent = pct + '%';
+            });
+            
+            // Update left-side categories widget
+            categories.forEach(category => {
+                const wasComplete = completedCategories.has(category);
+                const isComplete = isCategoryComplete(category);
+                const pct = getCategoryPercentage(category);
+                
+                const categoryItem = document.querySelector(`.category-item[data-category="${category}"]`);
+                const checkmark = document.getElementById(`cat-${category}`);
+                const percentElem = document.getElementById(`percent-${category}`);
+                const sectionHeader = document.querySelector(`.section-header[data-section="${category}"]`);
+                
+                if (categoryItem && checkmark && percentElem) {
+                    percentElem.textContent = pct + '%';
+                    
+                    if (isComplete) {
+                        categoryItem.classList.add('completed');
+                        checkmark.textContent = '✅';
+                        if (sectionHeader) {
+                            sectionHeader.classList.add('completed');
+                        }
+                        
+                        if (!wasComplete) {
+                            completedCategories.add(category);
+                            createConfetti();
+                        }
+                    } else {
+                        categoryItem.classList.remove('completed');
+                        checkmark.textContent = '☐';
+                        if (sectionHeader) {
+                            sectionHeader.classList.remove('completed');
+                        }
+                        completedCategories.delete(category);
+                    }
+                }
+            });
+            
+            // Trigger confetti at 100%
+            if (percentage === 100 && completed > 0) {
+                createConfetti();
+            }
+        }
+        
+        function generateReport() {
+            let html = '';
+            let hasUnchecked = false;
+            
+            categories.forEach(category => {
+                const unchecked = getUncheckedItems(category);
+                const percentage = getCategoryPercentage(category);
+                
+                if (unchecked.length > 0) {
+                    hasUnchecked = true;
+                }
+                
+                html += `
+                    <div class="report-section">
+                        <div class="report-section-title">
+                            ${categoryNames[category]} - ${percentage}% Complete
+                        </div>
+                        ${unchecked.length === 0 ? 
+                            '<div class="no-items">✅ All items in this section are complete! Great job!</div>' :
+                            `<p style="color: #666; margin-bottom: 10px;">Focus on these ${unchecked.length} areas:</p>` +
+                            unchecked.map(item => `<div class="report-item">${item}</div>`).join('')
+                        }
+                    </div>
+                `;
+            });
+            
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            html = `
+                <div style="margin-bottom: 20px; padding: 15px; background-color: #e6f0ff; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">📊 Overall Progress: ${percentage}% (${completed}/${total} items)</h3>
+                    <p style="color: #666; font-size: 0.95em;">
+                        ${hasUnchecked ? 
+                            'Items listed below are areas where you could strengthen your exam preparation. Review these topics carefully!' :
+                            '🎉 Congratulations! You have completed all exam topics. You\'re ready for the exam!'}
+                    </p>
+                </div>
+            ` + html;
+            
+            document.getElementById('reportContent').innerHTML = html;
+            document.getElementById('reportModal').classList.add('show');
+        }
+        
+        // Event listeners
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                this.closest('li').classList.toggle('completed');
+                updateProgress();
+            });
+        });
+        
+        // Load saved progress
+        checkboxes.forEach((checkbox, index) => {
+            const saved = localStorage.getItem('exam-4section-' + index);
+            if (saved === 'true') {
+                checkbox.checked = true;
+                checkbox.closest('li').classList.add('completed');
+            }
+            
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem('exam-4section-' + index, this.checked);
+            });
+        });
+        
+        document.getElementById('generateReportBtn').addEventListener('click', generateReport);
+        
+        document.getElementById('closeReportBtn').addEventListener('click', function() {
+            document.getElementById('reportModal').classList.remove('show');
+        });
+        
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = false;
+                    checkbox.closest('li').classList.remove('completed');
+                    localStorage.removeItem('exam-4section-' + index);
+                });
+                updateProgress();
+            }
+        });
+        
+        // Close modal on background click
+        document.getElementById('reportModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+            }
+        });
+        
+        updateProgress();
+    </script>
+</body>
+</html>

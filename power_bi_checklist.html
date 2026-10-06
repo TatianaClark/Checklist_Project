@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Concepts Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Navigation Menu */
+        nav {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-brand:hover {
+            opacity: 0.9;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-menu li {
+            margin: 0;
+        }
+        
+        .nav-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: #FFD700;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .page-content {
+            padding: 0;
+        }
+        
+        /* Marquee Banner */
+        .marquee-container {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 20px 0;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .marquee {
+            display: flex;
+            animation: scroll 45s linear infinite;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            white-space: nowrap;
+            color: #764ba2;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .circle-badge {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #800080 0%, #600060 100%);
+            border: 4px solid #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            font-size: 1.2em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: pulse-circle 3s ease-in-out infinite;
+            padding: 10px;
+        }
+        
+        @keyframes pulse-circle {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            }
+        }
+        
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 3px solid #FFD700;
+            animation: pulse-glow 3s ease-in-out infinite;
+            max-width: 100%;
+            display: block;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 128, 0.1);
+        }
+        
+        h1 {
+            color: #800080;
+            font-weight: bold;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #800080;
+            font-weight: bold;
+            font-size: 1.8em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #800080;
+            padding-bottom: 10px;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+            border-left: 4px solid #800080;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist li:hover {
+            background-color: #ede7f6;
+            transform: translateX(5px);
+        }
+        
+        .checklist input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #800080;
+        }
+        
+        .checklist li.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .progress-bar {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 30px 0;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .completion-text {
+            text-align: center;
+            color: #800080;
+            font-weight: bold;
+            margin-top: 10px;
+            position: sticky;
+            top: 8px;
+            z-index: 999;
+            background-color: white;
+            padding: 5px 0;
+        }
+        
+        .reset-btn {
+            display: block;
+            margin: 40px auto 20px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+        }
+        
+        .reset-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+        }
+        
+        .reset-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .floating-progress {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            min-width: 150px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .floating-progress .progress-title {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+        
+        .floating-progress .progress-percentage {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        
+        .floating-progress .progress-items {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+        
+        .floating-categories {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        
+        .categories-title {
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-radius: 6px;
+            background-color: #f8f7ff;
+            transition: all 0.3s ease;
+        }
+        
+        .category-item.completed {
+            background-color: #d4edda;
+        }
+        
+        .category-checkbox {
+            font-size: 1.5em;
+            min-width: 25px;
+            text-align: center;
+        }
+        
+        .category-name {
+            font-size: 0.9em;
+            color: #333;
+            flex: 1;
+        }
+        
+        .category-item.completed .category-name {
+            color: #155724;
+            text-decoration: line-through;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ffd700;
+            pointer-events: none;
+            z-index: 2000;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(500px) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .confetti.animate {
+            animation: confetti-fall 3s ease-in forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Progress Widget -->
+    <div class="floating-progress" id="floatingProgress">
+        <div class="progress-title">📊 Progress</div>
+        <div class="progress-percentage" id="floatingPercentage">0%</div>
+        <div class="progress-items" id="floatingItems">0/25</div>
+    </div>
+    
+    <!-- Floating Categories Widget -->
+    <div class="floating-categories" id="floatingCategories">
+        <div class="categories-title">📚 Categories</div>
+        <div class="category-item" data-category="core-concepts">
+            <div class="category-checkbox" id="cat-core-concepts">☐</div>
+            <div class="category-name">Core Concepts</div>
+        </div>
+        <div class="category-item" data-category="visualizations">
+            <div class="category-checkbox" id="cat-visualizations">☐</div>
+            <div class="category-name">Visualizations</div>
+        </div>
+        <div class="category-item" data-category="advanced-topics">
+            <div class="category-checkbox" id="cat-advanced-topics">☐</div>
+            <div class="category-name">Advanced Topics</div>
+        </div>
+        <div class="category-item" data-category="publishing-sharing">
+            <div class="category-checkbox" id="cat-publishing-sharing">☐</div>
+            <div class="category-name">Publishing & Sharing</div>
+        </div>
+    </div>
+    
+    <!-- Navigation Menu -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📚 Checklists Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="power_bi_checklist.html">📊 Power BI</a></li>
+                <li><a href="github_pages_setup_checklist.html">🚀 GitHub Setup</a></li>
+                <li><a href="free_hosting_options_checklist.html">🌐 Hosting</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Marquee with Logo -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <div class="marquee-item">
+                <img src="PowerBI_Superhero.png" alt="Tatiana Logo" class="logo-image" />
+                <span>✨Power Bi CheckList  ✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="page-content">
+    
+    
+    <div class="container">
+        <h1>Power BI Concepts Checklist</h1>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="completion-text" id="completionText">0% Complete</div>
+        
+        <h2>Core Concepts</h2>
+        <ul class="checklist" data-category="core-concepts">
+            <li><input type="checkbox"> DAX (Data Analysis Expressions)</li>
+            <li><input type="checkbox"> Power Query</li>
+            <li><input type="checkbox"> Data Modeling</li>
+            <li><input type="checkbox"> Relationships (One-to-Many, Many-to-Many)</li>
+            <li><input type="checkbox"> Measures vs Calculated Columns</li>
+        </ul>
+        
+        <h2>Visualizations</h2>
+        <ul class="checklist" data-category="visualizations">
+            <li><input type="checkbox"> Column Charts</li>
+            <li><input type="checkbox"> Line Charts</li>
+            <li><input type="checkbox"> Pie Charts</li>
+            <li><input type="checkbox"> Scatter Plots</li>
+            <li><input type="checkbox"> Maps</li>
+            <li><input type="checkbox"> KPI Cards</li>
+            <li><input type="checkbox"> Tables and Matrix</li>
+        </ul>
+        
+        <h2>Advanced Topics</h2>
+        <ul class="checklist" data-category="advanced-topics">
+            <li><input type="checkbox"> Row-Level Security (RLS)</li>
+            <li><input type="checkbox"> Time Intelligence Functions</li>
+            <li><input type="checkbox"> Aggregations</li>
+            <li><input type="checkbox"> Direct Query vs Import Mode</li>
+            <li><input type="checkbox"> Performance Optimization</li>
+        </ul>
+        
+        <h2>Publishing & Sharing</h2>
+        <ul class="checklist" data-category="publishing-sharing">
+            <li><input type="checkbox"> Workspaces</li>
+            <li><input type="checkbox"> App Creation</li>
+            <li><input type="checkbox"> Sharing and Permissions</li>
+            <li><input type="checkbox"> Mobile Layout</li>
+            <li><input type="checkbox"> Paginated Reports</li>
+        </ul>
+        
+        <button id="resetBtn" class="reset-btn">🔄 Reset Progress</button>
+    </div>
+    
+    <script>
+        const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+        const categories = ['core-concepts', 'visualizations', 'advanced-topics', 'publishing-sharing'];
+        const completedCategories = new Set();
+        
+        console.log('Total checkboxes found:', checkboxes.length);
+        
+        function getCheckboxesByCategory(category) {
+            const checklist = document.querySelector(`ul[data-category="${category}"]`);
+            if (!checklist) {
+                console.log('No checklist found for category:', category);
+                return [];
+            }
+            const items = checklist.querySelectorAll('input[type="checkbox"]');
+            console.log(`Category ${category} has ${items.length} items`);
+            return items;
+        }
+        
+        function isCategoryComplete(category) {
+            const categoryCheckboxes = getCheckboxesByCategory(category);
+            if (categoryCheckboxes.length === 0) return false;
+            const complete = Array.from(categoryCheckboxes).every(cb => cb.checked);
+            console.log(`Category ${category} complete:`, complete);
+            return complete;
+        }
+        
+        function createConfetti() {
+            console.log('Creating confetti!');
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = Math.random() * (window.innerHeight * 0.3) + 'px';
+                const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#95e1d3', '#f38181'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (Math.random() * 10 + 8) + 'px';
+                confetti.style.height = confetti.style.width;
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.classList.add('animate');
+                }, 10);
+                
+                setTimeout(() => confetti.remove(), 3200);
+            }
+        }
+        
+        function updateProgress() {
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('completionText').textContent = percentage + '% Complete';
+            
+            // Update floating widget
+            document.getElementById('floatingPercentage').textContent = percentage + '%';
+            document.getElementById('floatingItems').textContent = completed + '/' + total;
+            
+            // Update categories
+            categories.forEach(category => {
+                const wasComplete = completedCategories.has(category);
+                const isComplete = isCategoryComplete(category);
+                
+                const categoryItem = document.querySelector(`.category-item[data-category="${category}"]`);
+                const checkmark = document.getElementById(`cat-${category}`);
+                
+                if (!categoryItem || !checkmark) {
+                    console.log('Missing elements for category:', category);
+                    return;
+                }
+                
+                if (isComplete) {
+                    categoryItem.classList.add('completed');
+                    checkmark.textContent = '✅';
+                    
+                    if (!wasComplete) {
+                        completedCategories.add(category);
+                        console.log('Category ' + category + ' completed! Triggering confetti...');
+                        createConfetti();
+                    }
+                } else {
+                    categoryItem.classList.remove('completed');
+                    checkmark.textContent = '☐';
+                    completedCategories.delete(category);
+                }
+            });
+        }
+        
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                this.closest('li').classList.toggle('completed');
+                console.log(`Checkbox ${index} changed to:`, this.checked);
+                updateProgress();
+            });
+        });
+        
+        // Load saved progress from localStorage
+        checkboxes.forEach((checkbox, index) => {
+            const saved = localStorage.getItem('power-bi-checklist-' + index);
+            if (saved === 'true') {
+                checkbox.checked = true;
+                checkbox.closest('li').classList.add('completed');
+            }
+            
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem('power-bi-checklist-' + index, this.checked);
+            });
+        });
+        
+        // Reset button functionality
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                // Uncheck all boxes
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = false;
+                    checkbox.closest('li').classList.remove('completed');
+                    localStorage.removeItem('power-bi-checklist-' + index);
+                });
+                
+                // Reset categories
+                completedCategories.clear();
+                
+                // Update progress
+                updateProgress();
+                
+                console.log('Progress reset!');
+            }
+        });
+        
+        console.log('Initializing progress...');
+        updateProgress();
+    </script>
+</body>
+</html>
